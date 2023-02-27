@@ -1,5 +1,6 @@
 import { Plugin, TFile } from 'obsidian';
 import { FRONTMATTER_LINKS_EDITOR_PLUGIN } from './editor_plugin';
+import frontmatterLinksMarkdownPostProcessor from './frontmatterLinksMarkdownPostProcessor';
 import { onMetadataCacheResolve } from './metadata_cache';
 import { onVaultFileRename } from './rename_links';
 import { DEFAULT_SETTINGS, FrontmatterLinksSettings, FrontmatterLinksSettingTab } from './settings';
@@ -12,6 +13,7 @@ export default class FrontmatterLinksPlugin extends Plugin {
 
 		this.addSettingTab(new FrontmatterLinksSettingTab(this.app, this));
 		this.registerEditorExtension(FRONTMATTER_LINKS_EDITOR_PLUGIN);
+		this.registerMarkdownPostProcessor(frontmatterLinksMarkdownPostProcessor)
 
 		if (this.settings.addToGraph) {
 			app.metadataCache.initialize();
