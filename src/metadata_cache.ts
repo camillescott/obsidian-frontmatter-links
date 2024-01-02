@@ -38,7 +38,7 @@ function addFrontmatterLinksToCache(file: TFile, frontmatter: any) {
                 } else {
                     links[file.path][href] = 1;
                 }
-            }
+            });
         } else if (typeof(value) === "object") {
             addFrontmatterLinksToCache(file, value);
         }

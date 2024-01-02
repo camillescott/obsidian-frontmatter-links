@@ -81,8 +81,8 @@ export class FrontmatterLinksEditorPlugin implements PluginValue {
                         let alias: string | undefined;
                         let markdownLink: boolean | undefined;
                         let start = node.from + 1;
-                        let from: integer | undefined;
-                        let to: integer | undefined;
+                        let from: number | undefined;
+                        let to: number | undefined;
                         let matches = [...text.matchAll(pattern)];
                         
                         if (matches.length === 0) {
@@ -98,9 +98,9 @@ export class FrontmatterLinksEditorPlugin implements PluginValue {
                             }
                         } else {
                             matches.forEach((match) => {
-                                from = start + match.index;
+                                from = start + (match.index ?? 0);
                                 to = from + match[0].length;
-                                
+
                                 if (match[4] === undefined) {
                                     markdownLink = false;
                                     href = match[1];
@@ -110,9 +110,9 @@ export class FrontmatterLinksEditorPlugin implements PluginValue {
                                     href = match[4];
                                     alias = match[3];
                                 }
-                                
+
                                 let isEntireString = from === start && to === node.to - 1;
-                                let quoteOffset = (isEntireString && settings.hideQuotes) ? 1 : 0
+                                let quoteOffset = (isEntireString && settings.hideQuotes) ? 1 : 0;
                                 
                                 if (href) {
                                     linkSlices.push({
